@@ -9,6 +9,7 @@
   "author": "bosco",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.10.0"
+    "express": "^4.10.0",
+    "express3-handlebars": "^0.5.2"
   }
 }
