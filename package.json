@@ -11,7 +11,8 @@
   "dependencies": {
     "body-parser": "^1.9.2",
     "express": "^4.10.0",
-    "express3-handlebars": "^0.5.2"
+    "express3-handlebars": "^0.5.2",
+    "formidable": "^1.0.15"
   },
   "devDependencies": {
     "chai": "^1.9.2",
