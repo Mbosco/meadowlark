@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var fortune = require('./lib/fortune.js');
 var formidable = require('formidable');
+var jqupload = require('jquery-file-upload-middleware');
 
 // setup handlebars view engine
 var handlebars = require('express3-handlebars').create({ 
@@ -30,6 +31,17 @@ app.use(function(req, res, next){
     if(!res.locals.partials) res.locals.partials = {};
     res.locals.partials.weater = getWeatherData();
     next();
+});
+app.use('/upload', function(req, res, next){
+    var now = Date.now();
+    jqupload.fileHandler({
+	uploadDir: function(){
+	    return __dirname + '/public/uploads' + now;
+	},
+	uploadUrl: function(){
+	    return '/uploads/' + now;
+	},
+    })(req, res, next);
 });
 
 // Routes go here
