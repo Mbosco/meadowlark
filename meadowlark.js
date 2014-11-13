@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var fortune = require('./lib/fortune.js');
 var formidable = require('formidable');
+var credentials = require('./credentials.js');
 
 // setup handlebars view engine
 var handlebars = require('express3-handlebars').create({ 
@@ -22,6 +23,9 @@ app.set('port', process.env.PORT || 3000);
 // middleware
 app.use(express.static(__dirname + '/public'));
 app.use(require('body-parser')());
+app.use(require('cookie-parser')(credentials.cookieSecret));
+app.use(require('express-session')());
+
 app.use(function(req, res, next){
     res.locals.showTests = app.get('env') !== 'production' && req.query.test === '1';
     next();
