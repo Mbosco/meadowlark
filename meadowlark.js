@@ -35,7 +35,13 @@ app.use(function(req, res, next){
     res.locals.partials.weater = getWeatherData();
     next();
 });
-
+app.use(function(req, res, next){
+    //if there's a flash message, transfer
+    //it to the context, then clear it
+    res.locals.flash = req.session.flash;
+    delete req.session.flash;
+    next()
+});
 // Routes go here
 app.get('/', function(req, res){
     res.render('home');

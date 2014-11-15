@@ -2,9 +2,11 @@
 <html>
 <head>
   <title>Meadowlark Travel</title>
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
   {{#if showTests}}
           <link rel="stylesheet" href="/vendor/mocha.css">
   {{/if}}
+
   {{{_sections.head}}}	
 </head>
 <body>
@@ -12,7 +14,14 @@
   {{{body}}}
   <script src="//code.jquery.com/jquery-2.0.2.min.js"></script>
   {{{_sections.jquery}}}
-
+  <script src="/js/bootstrap.min.js"></script>
+{{#if flash}}
+  <div class="alert alert-dismissable alert-{{flash.type}}">
+    <button type="button" class="close" data-dismiss="alert"
+	    aria-hidden="true">&times;</button>
+    <strong>{{flash.intro}}</strong> {{{flash.message}}}
+  </div>
+{{/if}}
 {{#if showTests}}
   <div id="mocha"></div>
   <script src="/vendor/mocha.js"></script>
