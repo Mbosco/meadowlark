@@ -1,3 +1,4 @@
+
 var express = require('express');
 var app = express();
 var fortune = require('./lib/fortune.js');
@@ -25,6 +26,20 @@ app.use(express.static(__dirname + '/public'));
 app.use(require('body-parser')());
 app.use(require('cookie-parser')(credentials.cookieSecret));
 app.use(require('express-session')());
+
+// test middleware
+app.use(function(req, res, next){
+    console.log('processing request for "'+ req.url + '"....');
+    next();
+});
+app.use(function(req, res, next){
+    console.log('terminating request');
+    res.send('thanks for playing!');
+    //we do not call next() here...this terminates the request
+});
+app.use(function(req, res, next){
+    console.log('whoops, i\'ll never get called');
+});
 
 app.use(function(req, res, next){
     res.locals.showTests = app.get('env') !== 'production' && req.query.test === '1';
