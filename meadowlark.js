@@ -3,6 +3,16 @@ var app = express();
 var fortune = require('./lib/fortune.js');
 var formidable = require('formidable');
 var credentials = require('./credentials.js');
+var nodemailer = require('nodemailer');
+
+// setup nodemailer transport
+var mailTransport = nodemailer.createTransport('SMTP', {
+    service: 'Gmail',
+    auth: {
+	user: credentials.gmail.user,
+	pass: credentials.gmail.password,
+    }
+});
 
 // setup handlebars view engine
 var handlebars = require('express3-handlebars').create({ 
@@ -148,3 +158,14 @@ function getWeatherData(){
 	],
     };
 };
+
+//sending mail
+mailTransport.sendMail({
+    from: '"Meadowlark Travel" <info@meadowlarktravel.com>',
+    to: 'joecustomer@gmail.com',
+    subject: 'Your Meadowlark Travel Tour',
+    text: 'Thank you for booking your trip with Meadowlark Travel. '+
+	'We look forward to your visit!',
+}, function(err){
+    if(err) console.err('Unable to send email: ' + err);
+});
