@@ -13,6 +13,19 @@ emailService.send('joecustomer@gmail.com', 'Hood River tours on sale today!',
                   'Get \'em while they\'re hot!');
 */
 
+//setup logging based on env
+switch(app.get('env')){
+case 'development':
+    // compact, colorful dev logging
+    app.use(require('morgan')('dev'));
+    break;
+case 'production':
+    //module 'express-logger' supports daily log rotation
+    app.use(require('express-logger')({
+	path: __dirname + '/log/requests.log'
+    }));
+    break;
+}
 
 // setup handlebars view engine
 var handlebars = require('express3-handlebars').create({ 
